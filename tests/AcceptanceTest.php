@@ -2,8 +2,14 @@
 
 declare(strict_types=1);
 
-namespace BirthdayGreetingsKata;
+namespace Tests\BirthdayGreetingsKata;
 
+use BirthdayGreetingsKata\Application\BirthdayService;
+use BirthdayGreetingsKata\Domain\XDate;
+use BirthdayGreetingsKata\Infrastructure\Exceptions\EmailIsNotValidException;
+use BirthdayGreetingsKata\Infrastructure\Exceptions\FileDoesNotExistException;
+use BirthdayGreetingsKata\Infrastructure\Exceptions\FileIsEmptyException;
+use BirthdayGreetingsKata\Infrastructure\Exceptions\TheEmployeeCanNotBeCreatedException;
 use GuzzleHttp\Client;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Process\Process;
@@ -16,7 +22,7 @@ class AcceptanceTest extends TestCase
     /**
      * @var BirthdayService
      */
-    private $service;
+    private $birthdayService;
 
     /** @before */
     protected function startMailhog(): void
@@ -31,7 +37,7 @@ class AcceptanceTest extends TestCase
         Process::fromShellCommandline('docker stop $(docker ps -a)')->run();
         Process::fromShellCommandline('docker-compose up -d')->run();
 
-        $this->service = new BirthdayService();
+        $this->birthdayService = new BirthdayService();
     }
 
     /** @after */
@@ -44,10 +50,11 @@ class AcceptanceTest extends TestCase
 
     /**
      * @test
+     * @throws FileDoesNotExistException|FileIsEmptyException|TheEmployeeCanNotBeCreatedException
      */
     public function willSendGreetings_whenItsSomebodysBirthday(): void
     {
-        $this->service->sendGreetings(
+        $this->birthdayService->sendGreetings(
             __DIR__ . '/resources/employee_data.txt',
             new XDate('2008/10/08'),
             static::SMTP_HOST,
@@ -66,10 +73,11 @@ class AcceptanceTest extends TestCase
 
     /**
      * @test
+     * @throws FileDoesNotExistException|FileIsEmptyException|TheEmployeeCanNotBeCreatedException
      */
     public function willNotSendEmailsWhenNobodysBirthday(): void
     {
-        $this->service->sendGreetings(
+        $this->birthdayService->sendGreetings(
             __DIR__ . '/resources/employee_data.txt',
             new XDate('2008/01/01'),
             static::SMTP_HOST,

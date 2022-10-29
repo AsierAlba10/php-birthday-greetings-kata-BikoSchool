@@ -5,13 +5,14 @@
     "keywords": ["kata", "practice", "coding dojo", "dojo", "birthday", "birthday-kata"],
     "require": {
         "swiftmailer/swiftmailer": "^6.1",
-        "php": "^7.1"
+        "php": "^8.1"
     },
     "require-dev": {
         "ext-json": "*",
-        "phpunit/phpunit": "^7.5",
-        "symfony/process": "^4.2",
-        "guzzlehttp/guzzle": "^6.3"
+        "phpunit/phpunit": "^9.5",
+        "symfony/process": "^5.4.x-dev",
+        "guzzlehttp/guzzle": "^6.5.8",
+        "mockery/mockery": "dev-master"
     },
     "license": "MIT",
     "authors": [
