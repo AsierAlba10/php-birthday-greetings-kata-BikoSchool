@@ -5,11 +5,10 @@ declare(strict_types=1);
 namespace Tests\BirthdayGreetingsKata;
 
 use BirthdayGreetingsKata\Application\BirthdayService;
-use BirthdayGreetingsKata\Domain\XDate;
-use BirthdayGreetingsKata\Infrastructure\Exceptions\EmailIsNotValidException;
 use BirthdayGreetingsKata\Infrastructure\Exceptions\FileDoesNotExistException;
 use BirthdayGreetingsKata\Infrastructure\Exceptions\FileIsEmptyException;
 use BirthdayGreetingsKata\Infrastructure\Exceptions\TheEmployeeCanNotBeCreatedException;
+use BirthdayGreetingsKata\Infrastructure\XDateRepository;
 use GuzzleHttp\Client;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Process\Process;
@@ -56,7 +55,7 @@ class AcceptanceTest extends TestCase
     {
         $this->birthdayService->sendGreetings(
             __DIR__ . '/resources/employee_data.txt',
-            new XDate('2008/10/08'),
+            new XDateRepository('2008/10/08'),
             static::SMTP_HOST,
             static::SMTP_PORT
         );
@@ -79,7 +78,7 @@ class AcceptanceTest extends TestCase
     {
         $this->birthdayService->sendGreetings(
             __DIR__ . '/resources/employee_data.txt',
-            new XDate('2008/01/01'),
+            new XDateRepository('2008/01/01'),
             static::SMTP_HOST,
             static::SMTP_PORT
         );

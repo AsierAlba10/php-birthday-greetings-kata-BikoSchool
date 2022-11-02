@@ -2,14 +2,13 @@
 
 namespace BirthdayGreetingsKata\Infrastructure;
 
-use BirthdayGreetingsKata\Domain\Employee;
 use Swift_Mailer;
 use Swift_Message;
 use Swift_SmtpTransport;
 
 class BirthdayGreetignsSender
 {
-    public function send(Employee $employee, $smtpHost, $smtpPort){
+    public function send(EmployeeRepository $employee, $smtpHost, $smtpPort){
         $email = $employee->getEmail();
         $body = sprintf('Happy Birthday, dear %s!', $employee->getFirstName());
         $subject = 'Happy Birthday!';

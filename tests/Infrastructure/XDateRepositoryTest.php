@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace Tests\BirthdayGreetingsKata\Domain;
+namespace Tests\BirthdayGreetingsKata\Infrastructure;
 
-use BirthdayGreetingsKata\Domain\XDate;
+use BirthdayGreetingsKata\Infrastructure\XDateRepository;
 use PHPUnit\Framework\TestCase;
 
-class XDateTest extends TestCase
+class XDateRepositoryTest extends TestCase
 {
     /**
      * @test
      */
     public function getters()
     {
-        $xDate = new XDate('1789/01/24');
+        $xDate = new XDateRepository('1789/01/24');
         $this->assertEquals(1, $xDate->getMonth());
         $this->assertEquals(24, $xDate->getDay());
     }
@@ -24,10 +24,10 @@ class XDateTest extends TestCase
      */
     public function isSameDate()
     {
-        $xDate          = new XDate('1789/01/24');
-        $sameDay        = new XDate('2001/01/24');
-        $notSameDay     = new XDate('1789/01/25');
-        $notSameMonth   = new XDate('1789/02/25');
+        $xDate          = new XDateRepository('1789/01/24');
+        $sameDay        = new XDateRepository('2001/01/24');
+        $notSameDay     = new XDateRepository('1789/01/25');
+        $notSameMonth   = new XDateRepository('1789/02/25');
 
         $this->assertTrue($xDate->isSameDay($sameDay),          'same');
         $this->assertFalse($xDate->isSameDay($notSameDay),      'not same day');
@@ -39,9 +39,9 @@ class XDateTest extends TestCase
      */
     public function equality()
     {
-        $base       = new XDate("2000/01/02");
-        $same       = new XDate("2000/01/02");
-        $different  = new XDate("2000/01/04");
+        $base       = new XDateRepository("2000/01/02");
+        $same       = new XDateRepository("2000/01/02");
+        $different  = new XDateRepository("2000/01/04");
 
         $this->assertFalse($base->equals(null));
         $this->assertFalse($base->equals(''));

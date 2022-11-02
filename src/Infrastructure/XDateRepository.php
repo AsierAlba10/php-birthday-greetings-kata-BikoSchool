@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace BirthdayGreetingsKata\Domain;
+namespace BirthdayGreetingsKata\Infrastructure;
 
 use DateTime;
 
-class XDate
+class XDateRepository
 {
     /**
      * @var DateTime
@@ -28,7 +28,7 @@ class XDate
         return (int) $this->date->format('m');
     }
 
-    public function isSameDay(XDate $anotherDate): bool
+    public function isSameDay(XDateRepository $anotherDate): bool
     {
         return
             $anotherDate->getDay() === $this->getDay()

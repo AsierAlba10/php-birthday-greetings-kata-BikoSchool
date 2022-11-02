@@ -2,12 +2,14 @@
 
 declare(strict_types=1);
 
-namespace BirthdayGreetingsKata\Domain;
+namespace BirthdayGreetingsKata\Infrastructure;
 
-final class Employee
+use BirthdayGreetingsKata\Domain\EmployeeInterface;
+
+final class EmployeeRepository implements EmployeeInterface
 {
     /**
-     * @var XDate
+     * @var XDateRepository
      */
     private $birthDate;
 
@@ -30,11 +32,11 @@ final class Employee
     {
         $this->firstName = $firstName;
         $this->lastName = $lastName;
-        $this->birthDate = new XDate($birthDate);
+        $this->birthDate = new XDateRepository($birthDate);
         $this->email = $email;
     }
 
-    public function isBirthday(XDate $today): bool
+    public function isBirthday(XDateRepository $today): bool
     {
         return $today->isSameDay($this->birthDate);
     }
@@ -51,7 +53,7 @@ final class Employee
 
     public function __toString(): string
     {
-        return 'Employee ' . $this->firstName . ' ' . $this->lastName . ' <' . $this->email . '> born ' . $this->birthDate;
+        return 'EmployeeRepository ' . $this->firstName . ' ' . $this->lastName . ' <' . $this->email . '> born ' . $this->birthDate;
     }
 
     public function equals($obj): bool
